@@ -38,7 +38,6 @@ def simulate(cli_args):
     wallet = Wallet(initial_cash)
 
     print(f'[*] Downloading {cli_args.ticker} data...')
-    # TODO : Handle error in download (incorrect ticker)
     ticker_data = yf.download(tickers=cli_args.ticker, 
                                 period=cli_args.period, 
                                 interval=cli_args.interval, 
