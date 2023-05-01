@@ -28,14 +28,14 @@ Perform the simulation
 def simulate():
     initial_cash = 100000
     wallet = Wallet(initial_cash)
-    strategy = Strategy()
     print('[*] Downloading MSFT data...') # TODO : Replace MSFT
     ticker_data = yf.download(tickers="MSFT", period="1d", interval="1m", prepost=False, repair=True) # TODO : Adjust according to the command line parameters
+    strategy = Strategy(ticker_data)
     print('[*] Simulating...')
     for i in range(len(ticker_data.index)):
-        if strategy.should_buy(ticker_data.iloc[i]):
+        if strategy.should_buy(i): # TODO : Send date instead of Series
             wallet.buy("MSFT", 100, 12) # TODO : Determine how much
-        elif strategy.should_sell(ticker_data.iloc[i]):
+        elif strategy.should_sell(i):
             wallet.sell("MSFT", 100, 12) # TODO : Determine how much
     # TODO : Sell all remaining assets (or find a way to show them in the final output)
     final_cash = wallet.cash
