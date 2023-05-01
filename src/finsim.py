@@ -57,8 +57,8 @@ def simulate(cli_args):
     final_cash = wallet.cash
 
     print('[+] Simulation done')
-    print(f'[+] Profits: {100 * (1 - initial_cash / final_cash)}%') # TODO : Format (xxx.xx% instead of xxx.xxxxxx%)
-    print(f'[+] If you had invested {initial_cash}$, you would now have {final_cash}$ using this method over the given period.') # TODO : Adjust period to be dynamic and format
+    print('[+] Profits: {:.2f}%'.format(100 * (1 - initial_cash / final_cash)))
+    print('[+] If you had invested {:.2f}$, you would now have {:.2f}$ using this method over a period of {}.'.format(initial_cash, final_cash, cli_args.period))
 
 
 if __name__ == '__main__':
