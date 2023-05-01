@@ -1,7 +1,7 @@
-from pandas import Dataframe
+from pandas import DataFrame
 
 class Strategy:
-    def __init__(self, ticker_data: Dataframe):
+    def __init__(self, ticker_data: DataFrame):
         self.ticker_data = ticker_data
 
     """
