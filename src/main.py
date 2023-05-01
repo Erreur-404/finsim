@@ -36,6 +36,7 @@ Perform the simulation
 def simulate(cli_args):
     initial_cash = 100000
     wallet = Wallet(initial_cash)
+
     print(f'[*] Downloading {cli_args.ticker} data...')
     # TODO : Handle error in download (incorrect ticker)
     ticker_data = yf.download(tickers=cli_args.ticker, 
@@ -43,7 +44,10 @@ def simulate(cli_args):
                                 interval=cli_args.interval, 
                                 prepost=False, 
                                 repair=True)
+    if ticker_data.empty:
+        exit()
     strategy = Strategy(ticker_data)
+
     print('[*] Simulating...')
     for i in range(len(ticker_data.index)):
         if strategy.should_buy(i): # TODO : Send date instead of Series
@@ -52,6 +56,7 @@ def simulate(cli_args):
             wallet.sell(cli_args.ticker, 100, 12) # TODO : Determine how much
     # TODO : Sell all remaining assets (or find a way to show them in the final output)
     final_cash = wallet.cash
+
     print('[+] Simulation done')
     print(f'[+] Profits: {100 * (1 - initial_cash / final_cash)}%') # TODO : Format (xxx.xx% instead of xxx.xxxxxx%)
     print(f'[+] If you had invested {initial_cash}$, you would now have {final_cash}$ using this method over the given period.') # TODO : Adjust period to be dynamic and format
