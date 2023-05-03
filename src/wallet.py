@@ -37,6 +37,9 @@ class Wallet:
             exit()
         self.__shares = clamp(self.__shares)
 
+    def sell_remaining_shares(self, ticker, price_per_share):
+        self.sell(ticker, self.__shares[ticker], price_per_share)
+
     @property
     def cash(self):
         return self.__cash

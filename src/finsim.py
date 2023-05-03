@@ -53,7 +53,8 @@ def simulate(cli_args):
             wallet.buy(cli_args.ticker, 100, 12) # TODO : Determine how much
         elif strategy.should_sell(i):
             wallet.sell(cli_args.ticker, 100, 12) # TODO : Determine how much
-    # TODO : Sell all remaining assets (or find a way to show them in the final output)
+    last_price_per_share = ticker_data.iloc[-1][3]
+    wallet.sell_remaining_shares(cli_args.ticker, last_price_per_share)
     final_cash = wallet.cash
 
     print('[+] Simulation done')
