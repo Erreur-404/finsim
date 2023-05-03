@@ -50,9 +50,9 @@ def simulate(cli_args):
     print('[*] Simulating...')
     for i in range(len(ticker_data.index)):
         if strategy.should_buy(i): # TODO : Send date instead of Series
-            wallet.buy(cli_args.ticker, 100, 12) # TODO : Determine how much
+            wallet.buy(cli_args.ticker, strategy.buy_quantity, 12) # TODO : Determine how much
         elif strategy.should_sell(i):
-            wallet.sell(cli_args.ticker, 100, 12) # TODO : Determine how much
+            wallet.sell(cli_args.ticker, strategy.sell_quantity, 12) # TODO : Determine how much
     last_price_per_share = ticker_data.iloc[-1][3]
     wallet.sell_remaining_shares(cli_args.ticker, last_price_per_share)
     final_cash = wallet.cash
