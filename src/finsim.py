@@ -58,7 +58,7 @@ def simulate(cli_args):
 
     print('[*] Simulating...')
     for i in range(len(ticker_data.index)):
-        if strategy.should_buy(i): # TODO : Send date instead of Series
+        if strategy.should_buy(i):
             wallet.buy(cli_args.ticker, strategy.buy_quantity, ticker_data.iloc[i][CONSTANTS['CLOSE']])
         elif strategy.should_sell(i):
             wallet.sell(cli_args.ticker, strategy.sell_quantity, ticker_data.iloc[i][CONSTANTS['CLOSE']])
