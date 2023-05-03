@@ -35,7 +35,7 @@ class Wallet:
             print('ERROR: Trying to sell unpossessed shares')
             print('ABORTING')
             exit()
-        self.__shares = clamp(self.__shares)
+        self.__shares[ticker] = clamp(self.__shares[ticker])
 
     """
     Sell all shares of a stock. Usually called at the end of the simulation.
