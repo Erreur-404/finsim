@@ -62,7 +62,7 @@ def simulate(cli_args):
             wallet.buy(cli_args.ticker, strategy.buy_quantity, ticker_data.iloc[i][CONSTANTS['CLOSE']])
         elif strategy.should_sell(i):
             wallet.sell(cli_args.ticker, strategy.sell_quantity, ticker_data.iloc[i][CONSTANTS['CLOSE']])
-    wallet.sell_remaining_shares(cli_args.ticker, ticker_data.iloc[-1][CONSTANTS['CLOSE']])
+    wallet.sell_all(cli_args.ticker, ticker_data.iloc[-1][CONSTANTS['CLOSE']])
     final_cash = wallet.cash
 
     print('[+] Simulation done')
