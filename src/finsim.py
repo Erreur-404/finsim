@@ -2,7 +2,16 @@ import yfinance as yf
 from argparse import ArgumentParser
 from wallet import Wallet
 from strategy import Strategy
+import json, os
 
+"""
+Read the constants from the constants file
+\return the constants in a dict format
+"""
+def read_constants():
+    constants_path = os.path.join(os.path.dirname(__file__), 'constants.json')
+    with open(constants_path, 'r') as f:
+        return json.load(f)
 
 """
 Sets the argument parser to interface with the CLI
@@ -50,17 +59,17 @@ def simulate(cli_args):
     print('[*] Simulating...')
     for i in range(len(ticker_data.index)):
         if strategy.should_buy(i): # TODO : Send date instead of Series
-            wallet.buy(cli_args.ticker, strategy.buy_quantity, 12) # TODO : Determine how much
+            wallet.buy(cli_args.ticker, strategy.buy_quantity, ticker_data.iloc[i][CONSTANTS['CLOSE']])
         elif strategy.should_sell(i):
-            wallet.sell(cli_args.ticker, strategy.sell_quantity, 12) # TODO : Determine how much
-    last_price_per_share = ticker_data.iloc[-1][3]
-    wallet.sell_remaining_shares(cli_args.ticker, last_price_per_share)
+            wallet.sell(cli_args.ticker, strategy.sell_quantity, ticker_data.iloc[i][CONSTANTS['CLOSE']])
+    wallet.sell_remaining_shares(cli_args.ticker, ticker_data.iloc[-1][CONSTANTS['CLOSE']])
     final_cash = wallet.cash
 
     print('[+] Simulation done')
     print('[+] Profits: {:.2f}%'.format(100 * (1 - initial_cash / final_cash)))
     print('[+] If you had invested {:.2f}$, you would now have {:.2f}$ using this method over a period of {}.'.format(initial_cash, final_cash, cli_args.period))
 
+CONSTANTS = read_constants()
 
 if __name__ == '__main__':
     args = set_args()

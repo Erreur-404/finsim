@@ -23,7 +23,7 @@ class Strategy:
         return False
 
     """
-    Returns the number of shares to buy on the next buy occasion
+    Gets the number of shares to buy on the next buy occasion
     \return     The __buy_quantity attribute
     """
     @property
@@ -31,7 +31,7 @@ class Strategy:
         return self.__buy_quantity
 
     """
-    Returns the number of shares to sell on the next sell occasion
+    Gets the number of shares to sell on the next sell occasion
     \return     The __sell_quantity attribute
     """
     @property

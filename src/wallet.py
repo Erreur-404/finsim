@@ -37,9 +37,19 @@ class Wallet:
             exit()
         self.__shares = clamp(self.__shares)
 
-    def sell_remaining_shares(self, ticker, price_per_share):
-        self.sell(ticker, self.__shares[ticker], price_per_share)
+    """
+    Sell all shares of a stock. Usually called at the end of the simulation.
+    \param      ticker: The Ticker of the stock to sell
+    \param      price_per_share: The price of a share at the time of the sell
+    """
+    def sell_all(self, ticker, price_per_share):
+        if ticker in self.__shares and self.__shares[ticker] > 0:
+            self.sell(ticker, self.__shares[ticker], price_per_share)
 
+    """
+    Get the amount of cash in the wallet
+    \return     The __cash attribute
+    """
     @property
     def cash(self):
         return self.__cash
