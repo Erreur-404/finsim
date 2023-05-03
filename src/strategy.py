@@ -8,7 +8,7 @@ class Strategy:
         self.__sell_quantity = 1
 
     """
-    Determines when is the right time to buy
+    Determines when is the right time to buy. This method is called once per interval
     \return     A boolean deciding whether it's the right time to buy or not
     """
     def should_buy(self, i: int) -> bool:
