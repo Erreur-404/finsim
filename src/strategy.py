@@ -1,10 +1,11 @@
 from pandas import DataFrame
 
 class Strategy:
-    def __init__(self, ticker_data: DataFrame):
-        self.ticker_data = ticker_data
-        self.__buy_quantity = 0
-        self.__sell_quantity = 0
+    def __init__(self, ticker_data: DataFrame, wallet):
+        self.__wallet = wallet
+        self.__ticker_data = ticker_data
+        self.__buy_quantity = 1
+        self.__sell_quantity = 1
 
     """
     Determines when is the right time to buy

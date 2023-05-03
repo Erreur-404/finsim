@@ -54,7 +54,7 @@ def simulate(cli_args):
                                 repair=True)
     if ticker_data.empty:
         exit()
-    strategy = Strategy(ticker_data)
+    strategy = Strategy(ticker_data, wallet)
 
     print('[*] Simulating...')
     for i in range(len(ticker_data.index)):
