@@ -3,7 +3,7 @@ The class that contains all your assets during the simulation, such as your
 stocks and your cash.
 """
 class Wallet:
-    def __init__(self, initial_cash, verbose=False):
+    def __init__(self, initial_cash: int, verbose=False):
         self.__cash = initial_cash
         self.__shares = dict()
 
@@ -14,7 +14,7 @@ class Wallet:
     \param      amount: The amount of stock to buy
     \param      price_per_share: The price of a share at the time of the trade
     """
-    def buy(self, ticker, amount, price_per_share):
+    def buy(self, ticker: str, amount: int, price_per_share: float):
         if self.__cash < amount * price_per_share:
             self.buy(ticker, self.__cash // price_per_share, price_per_share)
             return
@@ -33,7 +33,7 @@ class Wallet:
     \param      amount: The amount of stock to sell
     \param      price_per_share: The price of a share at the time of the trade
     """
-    def sell(self, ticker, amount, price_per_share):
+    def sell(self, ticker: str, amount: int, price_per_share: float):
         if self.__shares[ticker] < amount:
             self.sell_all(ticker, price_per_share)
             return
@@ -53,7 +53,7 @@ class Wallet:
     \param      ticker: The Ticker of the stock to sell
     \param      price_per_share: The price of a share at the time of the sell
     """
-    def sell_all(self, ticker, price_per_share):
+    def sell_all(self, ticker: str, price_per_share: float):
         if ticker in self.__shares and self.__shares[ticker] > 0:
             self.sell(ticker, self.__shares[ticker], price_per_share)
 
@@ -63,7 +63,7 @@ class Wallet:
     \return     The __cash attribute
     """
     @property
-    def cash(self):
+    def cash(self) -> float:
         return self.__cash
 
 
@@ -71,7 +71,7 @@ class Wallet:
     Get the owned amount of shares of a given stock
     \return     The amount of shares
     """
-    def get_shares(self, ticker):
+    def get_shares(self, ticker) -> int:
         return self.__shares[ticker] if ticker in self.__shares else 0
 
 

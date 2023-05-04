@@ -1,8 +1,9 @@
 from pandas import DataFrame
+from wallet import Wallet
 import pandas_ta as ta
 
 class Strategy:
-    def __init__(self, ticker_data: DataFrame, wallet):
+    def __init__(self, ticker_data: DataFrame, wallet: Wallet):
         self.__wallet = wallet
         self.__ticker_data = ticker_data
         self.__buy_quantity = 1 # TODO : Adjust according to your strategy
@@ -34,7 +35,7 @@ class Strategy:
     \return     The __buy_quantity attribute
     """
     @property
-    def buy_quantity(self):
+    def buy_quantity(self) -> int:
         return self.__buy_quantity
 
 
@@ -43,5 +44,5 @@ class Strategy:
     \return     The __sell_quantity attribute
     """
     @property
-    def sell_quantity(self):
+    def sell_quantity(self) -> int:
         return self.__sell_quantity
