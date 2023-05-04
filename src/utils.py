@@ -15,3 +15,14 @@ Clamp the parameter so that it does not go below 0.
 """
 def clamp(attrib):
     return 0 if attrib < 0 else attrib
+
+
+"""
+Print informationnal message if the debug level meets the message level
+\param      message: The message to print
+\param      current_level: The verbose level. Usually given as a command line parameter
+\param      message_level: The lowest verbose level needed to display the message
+"""
+def debug_print(message: str, current_level: int = 0, message_level: int = 1):
+    if current_level >= message_level:
+        print(message)
