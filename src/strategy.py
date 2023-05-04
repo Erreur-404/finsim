@@ -1,27 +1,30 @@
 from pandas import DataFrame
+import pandas_ta as ta
 
 class Strategy:
     def __init__(self, ticker_data: DataFrame, wallet):
         self.__wallet = wallet
         self.__ticker_data = ticker_data
-        self.__buy_quantity = 1
-        self.__sell_quantity = 1
+        self.__buy_quantity = 1 # TODO : Adjust according to your strategy
+        self.__sell_quantity = 1 # TODO : Adjust according to your strategy
 
     """
     Determines when is the right time to buy. This method is called once per interval
     \return     A boolean deciding whether it's the right time to buy or not
     """
     def should_buy(self, i: int) -> bool:
-        # TODO : Complete
-        return False
+        # TODO : Replace with your buying strategy
+        rsi = ta.rsi(self.__ticker_data.get('Close'))
+        return rsi.iloc[i] < 34 and self.__wallet.cash > self.buy_quantity * self.__ticker_data.iat[i, 3]
 
     """
     Determines when is the right time to sell
     \return     A boolean deciding whether it's the right time to sell or not
     """
     def should_sell(self, i: int) -> bool:
-        # TODO : Complete
-        return False
+        # TODO : Replace with your selling strategy 
+        rsi = ta.rsi(self.__ticker_data.get('Close'))
+        return rsi.iloc[i] > 70 and self.__wallet.get_shares('TSLA') > self.__sell_quantity
 
     """
     Gets the number of shares to buy on the next buy occasion
