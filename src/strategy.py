@@ -6,8 +6,11 @@ class Strategy:
     def __init__(self, ticker_data: DataFrame, wallet: Wallet):
         self.__wallet = wallet
         self.__ticker_data = ticker_data
-        self.__buy_quantity = 1 # TODO : Adjust according to your strategy
-        self.__sell_quantity = 1 # TODO : Adjust according to your strategy
+        self.__buy_quantity = 100 # TODO : Adjust according to your strategy
+        self.__sell_quantity = 100 # TODO : Adjust according to your strategy
+
+        # Note : Feel free to add your own attributes and methods!
+        self.rsi = ta.rsi(self.__ticker_data.get('Close'))
 
 
     """
@@ -16,8 +19,7 @@ class Strategy:
     """
     def should_buy(self, i: int) -> bool:
         # TODO : Replace with your buying strategy
-        rsi = ta.rsi(self.__ticker_data.get('Close'))
-        return rsi.iloc[i] < 30
+        return self.rsi.iloc[i] < 20
 
 
     """
@@ -26,8 +28,7 @@ class Strategy:
     """
     def should_sell(self, i: int) -> bool:
         # TODO : Replace with your selling strategy 
-        rsi = ta.rsi(self.__ticker_data.get('Close'))
-        return rsi.iloc[i] > 70
+        return self.rsi.iloc[i] > 80
 
 
     """
