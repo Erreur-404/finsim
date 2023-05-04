@@ -63,7 +63,7 @@ class Wallet:
     \return     The amount of shares
     """
     def get_shares(self, ticker):
-        return self.__shares[ticker]
+        return self.__shares[ticker] if ticker in self.__shares else 0
 
 """
 Clamp the parameter so that it does not go below 0.
