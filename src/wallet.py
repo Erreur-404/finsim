@@ -15,9 +15,9 @@ class Wallet:
     """
     def buy(self, ticker, amount, price_per_share):
         if self.__cash < amount * price_per_share:
-            print('ERROR: Trying to buy shares without enough cash')
-            print('ABORTING')
-            exit()
+            self.buy(ticker, self.__cash // price_per_share, price_per_share)
+            return
+
         self.__cash -= amount * price_per_share
         self.__cash = clamp(self.__cash)
         try:
@@ -32,6 +32,10 @@ class Wallet:
     \param      price_per_share: The price of a share at the time of the trade
     """
     def sell(self, ticker, amount, price_per_share):
+        if self.__shares[ticker] < amount:
+            self.sell_all(ticker, price_per_share)
+            return
+
         self.__cash += amount * price_per_share
         try:
             self.__shares[ticker] -= amount
