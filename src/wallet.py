@@ -18,6 +18,9 @@ class Wallet:
     \param      price_per_share: The price of a share at the time of the trade
     """
     def buy(self, ticker: str, amount: int, price_per_share: float):
+        if amount <= 0:
+            return
+
         if self.__cash < amount * price_per_share:
             self.buy(ticker, self.__cash // price_per_share, price_per_share)
             return
@@ -39,6 +42,9 @@ class Wallet:
     \param      price_per_share: The price of a share at the time of the trade
     """
     def sell(self, ticker: str, amount: int, price_per_share: float):
+        if amount <= 0:
+            return
+
         if self.__shares[ticker] < amount:
             self.sell_all(ticker, price_per_share)
             return
