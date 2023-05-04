@@ -1,5 +1,4 @@
 import yfinance as yf
-import json, os
 from argparse import ArgumentParser
 from wallet import Wallet
 from strategy import Strategy
@@ -25,6 +24,11 @@ def set_args():
                             help='The interval between two timestamps. Possible values: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo',
                             default='1d')
 
+    arg_parser.add_argument('--verbose', '-v',
+                            help='The verbose level. Can be supplied multiple times to increase verbosity',
+                            action='count',
+                            default=0)
+
     # TODO : Complete
     arguments = arg_parser.parse_args()
     arguments.ticker = arguments.ticker.upper()
@@ -37,7 +41,7 @@ Perform the simulation
 """
 def simulate(cli_args):
     initial_cash = 100000
-    wallet = Wallet(initial_cash)
+    wallet = Wallet(initial_cash, cli_args.verbose)
 
     print(f'[*] Downloading {cli_args.ticker} data...')
     ticker_data = yf.download(tickers=cli_args.ticker, 
