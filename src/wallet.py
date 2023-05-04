@@ -5,7 +5,7 @@ The class that contains all your assets during the simulation, such as your
 stocks and your cash.
 """
 class Wallet:
-    def __init__(self, initial_cash: int, verbose=False):
+    def __init__(self, initial_cash: int, verbose: bool = False):
         self.__cash = initial_cash
         self.__shares = dict()
 
@@ -73,5 +73,5 @@ class Wallet:
     Get the owned amount of shares of a given stock
     \return     The amount of shares
     """
-    def get_shares(self, ticker) -> int:
+    def get_shares(self, ticker: str) -> int:
         return self.__shares[ticker] if ticker in self.__shares else 0

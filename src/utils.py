@@ -11,7 +11,7 @@ def read_constants():
 """
 Clamp the parameter so that it does not go below 0.
 \param      attrib: The value to clamp
+\return     The clamped parameter
 """
 def clamp(attrib):
     return 0 if attrib < 0 else attrib
-
