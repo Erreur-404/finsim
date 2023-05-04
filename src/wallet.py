@@ -42,23 +42,18 @@ class Wallet:
     \param      price_per_share: The price of a share at the time of the trade
     """
     def sell(self, ticker: str, amount: int, price_per_share: float):
-        if amount <= 0:
+        if amount <= 0 or ticker not in self.__shares:
             return
 
-        if self.__shares[ticker] < amount:
+        if ticker in self.__shares and self.__shares[ticker] < amount:
             self.sell_all(ticker, price_per_share)
             return
 
         debug_print('[+] Selling {} shares of {} at {:.2f}$'.format(int(amount), ticker, price_per_share), self.__verbosity, 1)
         self.__cash += amount * price_per_share
-        debug_print('[+] Cash is now at {:.2f}$\n'.format(self.__cash), self.__verbosity, 2)
-        try:
-            self.__shares[ticker] -= amount
-        except KeyError:
-            print('ERROR: Trying to sell unpossessed shares')
-            print('ABORTING')
-            exit()
+        self.__shares[ticker] -= amount
         self.__shares[ticker] = clamp(self.__shares[ticker])
+        debug_print('[+] Cash is now at {:.2f}$\n'.format(self.__cash), self.__verbosity, 2)
 
 
     """
