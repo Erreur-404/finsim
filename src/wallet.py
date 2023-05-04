@@ -1,3 +1,5 @@
+from utils import clamp
+
 """
 The class that contains all your assets during the simulation, such as your
 stocks and your cash.
@@ -73,11 +75,3 @@ class Wallet:
     """
     def get_shares(self, ticker) -> int:
         return self.__shares[ticker] if ticker in self.__shares else 0
-
-
-"""
-Clamp the parameter so that it does not go below 0.
-\param      attrib: The value to clamp
-"""
-def clamp(attrib):
-    return 0 if attrib < 0 else attrib

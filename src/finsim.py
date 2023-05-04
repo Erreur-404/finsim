@@ -1,17 +1,9 @@
 import yfinance as yf
+import json, os
 from argparse import ArgumentParser
 from wallet import Wallet
 from strategy import Strategy
-import json, os
-
-"""
-Read the constants from the constants file
-\return the constants in a dict format
-"""
-def read_constants():
-    constants_path = os.path.join(os.path.dirname(__file__), 'constants.json')
-    with open(constants_path, 'r') as f:
-        return json.load(f)
+from utils import read_constants
 
 
 """

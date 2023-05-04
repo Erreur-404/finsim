@@ -1,6 +1,6 @@
+import pandas_ta as ta
 from pandas import DataFrame
 from wallet import Wallet
-import pandas_ta as ta
 
 class Strategy:
     def __init__(self, ticker_data: DataFrame, wallet: Wallet):
