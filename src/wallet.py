@@ -58,6 +58,14 @@ class Wallet:
     def cash(self):
         return self.__cash
 
+    """
+    Get the owned amount of shares of a given stock
+    \return     The amount of shares
+    """
+    @property
+    def shares(self, ticker):
+        return self.__shares[ticker]
+
 """
 Clamp the parameter so that it does not go below 0.
 \param      attrib: The value to clamp
