@@ -22,10 +22,10 @@ class Wallet:
             self.buy(ticker, self.__cash // price_per_share, price_per_share)
             return
 
-        debug_print(f'[+] Buying {amount} shares of {ticker} at {price_per_share}', self.__verbosity, 1)
+        debug_print('[+] Buying {} shares of {} at {:.2f}$'.format(amount, ticker, price_per_share), self.__verbosity, 1)
         self.__cash -= amount * price_per_share
         self.__cash = clamp(self.__cash)
-        debug_print(f'[+] Cash is now at {self.__cash}$\n', self.__verbosity, 2)
+        debug_print('[+] Cash is now at {:.2f}$\n'.format(self.__cash), self.__verbosity, 2)
         try:
             self.__shares[ticker] += amount
         except KeyError:
@@ -43,9 +43,9 @@ class Wallet:
             self.sell_all(ticker, price_per_share)
             return
 
-        debug_print(f'[+] Selling {amount} shares of {ticker} at {price_per_share}', self.__verbosity, 1)
+        debug_print('[+] Selling {} shares of {} at {:.2f}$'.format(amount, ticker, price_per_share), self.__verbosity, 1)
         self.__cash += amount * price_per_share
-        debug_print(f'[+] Cash is now at {self.__cash}$\n', self.__verbosity, 2)
+        debug_print('[+] Cash is now at {:.2f}$\n'.format(self.__cash), self.__verbosity, 2)
         try:
             self.__shares[ticker] -= amount
         except KeyError:
