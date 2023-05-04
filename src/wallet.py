@@ -62,8 +62,7 @@ class Wallet:
     Get the owned amount of shares of a given stock
     \return     The amount of shares
     """
-    @property
-    def shares(self, ticker):
+    def get_shares(self, ticker):
         return self.__shares[ticker]
 
 """
