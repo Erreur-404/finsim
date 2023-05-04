@@ -3,9 +3,10 @@ The class that contains all your assets during the simulation, such as your
 stocks and your cash.
 """
 class Wallet:
-    def __init__(self, initial_cash):
+    def __init__(self, initial_cash, verbose=False):
         self.__cash = initial_cash
         self.__shares = dict()
+
 
     """
     Buy a stock
@@ -24,6 +25,7 @@ class Wallet:
             self.__shares[ticker] += amount
         except KeyError:
             self.__shares[ticker] = amount
+
 
     """
     Sell a stock
@@ -45,6 +47,7 @@ class Wallet:
             exit()
         self.__shares[ticker] = clamp(self.__shares[ticker])
 
+
     """
     Sell all shares of a stock. Usually called at the end of the simulation.
     \param      ticker: The Ticker of the stock to sell
@@ -54,6 +57,7 @@ class Wallet:
         if ticker in self.__shares and self.__shares[ticker] > 0:
             self.sell(ticker, self.__shares[ticker], price_per_share)
 
+
     """
     Get the amount of cash in the wallet
     \return     The __cash attribute
@@ -62,12 +66,14 @@ class Wallet:
     def cash(self):
         return self.__cash
 
+
     """
     Get the owned amount of shares of a given stock
     \return     The amount of shares
     """
     def get_shares(self, ticker):
         return self.__shares[ticker] if ticker in self.__shares else 0
+
 
 """
 Clamp the parameter so that it does not go below 0.

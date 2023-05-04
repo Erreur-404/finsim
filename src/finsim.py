@@ -13,6 +13,7 @@ def read_constants():
     with open(constants_path, 'r') as f:
         return json.load(f)
 
+
 """
 Sets the argument parser to interface with the CLI
 """
