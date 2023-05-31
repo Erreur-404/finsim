@@ -19,11 +19,10 @@ class Wallet:
     """
     def buy(self, ticker: str, amount: int, price_per_share: float):
         if amount <= 0:
-            return
+            return False
 
         if self.__cash < amount * price_per_share:
-            self.buy(ticker, self.__cash // price_per_share, price_per_share)
-            return
+            return self.buy(ticker, self.__cash // price_per_share, price_per_share)
 
         debug_print('[+] Buying {} shares of {} at {:.2f}$'.format(int(amount), ticker, price_per_share), self.__verbosity, 1)
         self.__cash -= amount * price_per_share
@@ -33,6 +32,7 @@ class Wallet:
             self.__shares[ticker] += amount
         except KeyError:
             self.__shares[ticker] = amount
+        return True
 
 
     """
@@ -43,17 +43,17 @@ class Wallet:
     """
     def sell(self, ticker: str, amount: int, price_per_share: float):
         if amount <= 0 or ticker not in self.__shares:
-            return
+            return False
 
         if ticker in self.__shares and self.__shares[ticker] < amount:
-            self.sell_all(ticker, price_per_share)
-            return
+            return self.sell_all(ticker, price_per_share)
 
         debug_print('[+] Selling {} shares of {} at {:.2f}$'.format(int(amount), ticker, price_per_share), self.__verbosity, 1)
         self.__cash += amount * price_per_share
         self.__shares[ticker] -= amount
         self.__shares[ticker] = clamp(self.__shares[ticker])
         debug_print('[+] Cash is now at {:.2f}$\n'.format(self.__cash), self.__verbosity, 2)
+        return True
 
 
     """
