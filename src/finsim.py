@@ -6,6 +6,9 @@ from strategy import Strategy
 from utils import read_constants
 from pandas import DataFrame
 
+# TODO : Place finsim.py in root folder
+# TODO : Update README.md
+
 
 """
 Sets the argument parser to interface with the CLI
