@@ -17,7 +17,7 @@ class Wallet:
     \param      amount: The amount of stock to buy
     \param      price_per_share: The price of a share at the time of the trade
     """
-    def buy(self, ticker: str, amount: int, price_per_share: float):
+    def buy(self, ticker: str, amount: int, price_per_share: float) -> bool:
         if amount <= 0:
             return False
 
@@ -41,7 +41,7 @@ class Wallet:
     \param      amount: The amount of stock to sell
     \param      price_per_share: The price of a share at the time of the trade
     """
-    def sell(self, ticker: str, amount: int, price_per_share: float):
+    def sell(self, ticker: str, amount: int, price_per_share: float) -> bool:
         if amount <= 0 or ticker not in self.__shares:
             return False
 
@@ -61,9 +61,11 @@ class Wallet:
     \param      ticker: The Ticker of the stock to sell
     \param      price_per_share: The price of a share at the time of the sell
     """
-    def sell_all(self, ticker: str, price_per_share: float):
+    def sell_all(self, ticker: str, price_per_share: float) -> bool:
         if ticker in self.__shares and self.__shares[ticker] > 0:
             self.sell(ticker, self.__shares[ticker], price_per_share)
+            return True
+        return False
 
 
     """
