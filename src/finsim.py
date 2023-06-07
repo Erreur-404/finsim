@@ -103,11 +103,11 @@ def simulate(cli_args):
     final_cash = wallet.cash
     print('[+] Simulation done')
 
-    if cli_args.graph:
-        generate_graph(ticker_data, buy_moments, sell_moments, cli_args.period)
-
     print('[+] Profits: {:.2f}%'.format(100 * (final_cash / initial_cash - 1)))
     print('[+] If you had invested {:.2f}$, you would now have {:.2f}$ using this method over a period of {}.'.format(initial_cash, final_cash, cli_args.period))
+
+    if cli_args.graph:
+        generate_graph(ticker_data, buy_moments, sell_moments, cli_args.period)
 
 
 CONSTANTS = read_constants()
