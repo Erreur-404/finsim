@@ -29,7 +29,12 @@ class Strategy:
     def should_sell(self, i: int) -> bool:
         # TODO : Replace with your selling strategy 
         return self.rsi.iloc[i] > 80
+    
+    def should_buy_bear(self, i: int) -> bool:
+        return False
 
+    def should_sell_bear(self, i: int) -> bool:
+        return False
 
     """
     Gets the number of shares to buy on the next buy occasion

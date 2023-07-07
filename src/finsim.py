@@ -29,6 +29,11 @@ def set_args():
                             help='The interval between two timestamps. Possible values: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo',
                             default='1d')
 
+    arg_parser.add_argument('--bear', '-b',
+                            help="If active, the strategy will buy the bear version of the given stock (even if it doesn't exist) when you sell the bull and vice versa",
+                            action='store_true',
+                            default=False)
+
     arg_parser.add_argument('--graph', '-g',
                             help='Whether a graph should be displayed at the end of the simulation',
                             action='store_true',
@@ -81,9 +86,17 @@ def simulate(cli_args):
                                 interval=cli_args.interval, 
                                 prepost=False, 
                                 repair=True)
+    bear_bought_price = 0.0
+    bull_bought_price = 0.0
     if ticker_data.empty:
         exit()
-    strategy = Strategy(ticker_data, wallet)
+
+    strategy = Strategy(yf.download(cli_args.ticker,
+                                period=cli_args.period, 
+                                interval=cli_args.interval, 
+                                prepost=False, 
+                                repair=True),
+                        wallet)
 
     print('[*] Simulating...')
     buy_moments = list()
@@ -91,15 +104,34 @@ def simulate(cli_args):
     for i in range(len(ticker_data.index)):
         if strategy.should_buy(i):
             price = ticker_data.iloc[i][CONSTANTS['CLOSE']]
+
+            if cli_args.bear and strategy.should_sell_bear(i):
+                bear_price = bear_bought_price + (bear_bought_price - price)
+                if wallet.sell(cli_args.ticker, strategy.sell_quantity, bear_price):
+                    bear_bought_price = 0.0
+
             if wallet.buy(cli_args.ticker, strategy.buy_quantity, price):
                 buy_moments.append((ticker_data.index[i], price))
+                bull_bought_price = price
 
         elif strategy.should_sell(i):
             price = ticker_data.iloc[i][CONSTANTS['CLOSE']]
+
             if wallet.sell(cli_args.ticker, strategy.sell_quantity, price):
                 sell_moments.append((ticker_data.index[i], price))
+                bull_bought_price = 0.0
 
-    wallet.sell_all(cli_args.ticker, ticker_data.iloc[-1][CONSTANTS['CLOSE']])
+            if cli_args.bear and strategy.should_buy_bear(i):
+                bear_price = price
+                if wallet.buy(cli_args.ticker, strategy.buy_quantity, bear_price):
+                    bear_bought_price = price
+
+    last_bull_price = ticker_data.iloc[-1][CONSTANTS['CLOSE']]
+    if bear_bought_price != 0.0:
+        bear_price = bear_bought_price + (bear_bought_price - last_bull_price)
+        wallet.sell_all(cli_args.ticker, bear_price)
+    else:
+        wallet.sell_all(cli_args.ticker, last_bull_price)
     final_cash = wallet.cash
     print('[+] Simulation done')
 
