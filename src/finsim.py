@@ -61,15 +61,15 @@ of the given stock over the given period
             sell_moments[1]: Price at moment of sell
 """
 def generate_graph(data: DataFrame, buy_moments: list, sell_moments: list, period: str):
-        print('[*] Generating graph...')
-        plt.plot(data.index, data.get('Close'))
-        plt.plot([i[0] for i in sell_moments], [i[1] for i in sell_moments], '.r', label='Sell moments', markersize=8)
-        plt.plot([i[0] for i in buy_moments], [i[1] for i in buy_moments], '.g', label='Buy moments', markersize=8)
-        plt.legend()
-        plt.suptitle(f'Application of the strategy over a period of {period}')
-        plt.xlabel('Timestamp')
-        plt.ylabel('Price')
-        plt.show()
+    print('[*] Generating graph...')
+    plt.plot(data.index, data.get('Close'))
+    plt.plot([i[0] for i in sell_moments], [i[1] for i in sell_moments], '.r', label='Sell moments', markersize=8)
+    plt.plot([i[0] for i in buy_moments], [i[1] for i in buy_moments], '.g', label='Buy moments', markersize=8)
+    plt.legend()
+    plt.suptitle(f'Application of the strategy over a period of {period}')
+    plt.xlabel('Timestamp')
+    plt.ylabel('Price')
+    plt.show()
 
 
 """
