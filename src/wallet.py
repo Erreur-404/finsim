@@ -68,6 +68,10 @@ class Wallet:
         return False
 
 
+    def receive_paycheck():
+        self.__cash += 1000 # TODO : Adapt to your reality. This should represent the portion of your weekly income that is dedicated to investing
+
+
     """
     Get the amount of cash in the wallet
     \return     The __cash attribute

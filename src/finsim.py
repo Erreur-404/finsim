@@ -102,6 +102,8 @@ def simulate(cli_args):
     buy_moments = list()
     sell_moments = list()
     for i in range(len(ticker_data.index)):
+        wallet.receive_paycheck()
+
         if strategy.should_buy(i):
             price = ticker_data.iloc[i][CONSTANTS['CLOSE']]
 
