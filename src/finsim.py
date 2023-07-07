@@ -90,7 +90,6 @@ def simulate(cli_args):
     bull_bought_price = 0.0
     if ticker_data.empty:
         exit()
-
     strategy = Strategy(yf.download(cli_args.ticker,
                                 period=cli_args.period, 
                                 interval=cli_args.interval, 
@@ -120,6 +119,7 @@ def simulate(cli_args):
             price = ticker_data.iloc[i][CONSTANTS['CLOSE']]
 
             if wallet.sell(cli_args.ticker, strategy.sell_quantity, price):
+                print('date = {},\t\tBull profits = {:.2f}%,\t\tWallet = {:.2f}$'.format(ticker_data.index[i], 100 * (price / buy_moments[-1][1] - 1), wallet.get_shares(cli_args.ticker) * price + wallet.cash))
                 sell_moments.append((ticker_data.index[i], price))
                 bull_bought_price = 0.0
 
