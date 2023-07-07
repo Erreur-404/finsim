@@ -68,7 +68,7 @@ class Wallet:
         return False
 
 
-    def receive_paycheck():
+    def receive_paycheck(self):
         self.__cash += 1000 # TODO : Adapt to your reality. This should represent the portion of your weekly income that is dedicated to investing
 
 
